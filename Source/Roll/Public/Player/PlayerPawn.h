@@ -7,9 +7,19 @@
 #include "PlayerPawn.generated.h"
 
 
+class URollPlayerComponent;
+
 UCLASS()
 class ROLL_API APlayerPawn : public ABasePawn
 {
 	GENERATED_BODY()
 	
+public:
+	APlayerPawn();
+	
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+	
+private:
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = Input, meta = (AllowPrivateAccess = "true"))
+	URollPlayerComponent* RollPlayerComponent;
 };
