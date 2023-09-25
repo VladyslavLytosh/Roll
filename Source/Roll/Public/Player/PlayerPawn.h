@@ -19,7 +19,13 @@ public:
 	
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	
+	virtual void BeginPlay() override;
+
+	FORCEINLINE UCapsuleComponent* GetCapsuleComponent() const { return CapsuleComponent; };
 private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
+	UCapsuleComponent* CapsuleComponent;
+	
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = Input, meta = (AllowPrivateAccess = "true"))
 	URollPlayerComponent* RollPlayerComponent;
 	
@@ -28,4 +34,8 @@ private:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	UCameraComponent* CameraComponent;
+
+	UFUNCTION()
+	void OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
+		UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 };

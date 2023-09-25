@@ -8,13 +8,8 @@
 ABasePawn::ABasePawn()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	
-	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
-	RootComponent = CapsuleComponent;
 
 	PawnMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PawnMesh"));
-	PawnMesh->SetupAttachment(RootComponent);
-	
 }
 
 void ABasePawn::BeginPlay()

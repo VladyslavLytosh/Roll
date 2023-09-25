@@ -6,6 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Characters/BasePawn.h"
 #include "Components/CapsuleComponent.h"
+#include "Player/PlayerPawn.h"
 
 void URollPlayerComponent::InitializePlayerInput(UInputComponent* PlayerInputComponent)
 {
@@ -37,7 +38,7 @@ void URollPlayerComponent::InitializePlayerInput(UInputComponent* PlayerInputCom
 
 void URollPlayerComponent::Input_Move(const FInputActionValue& InputActionValue)
 {
-	ABasePawn* Pawn = GetPawn<ABasePawn>();
+	APlayerPawn* Pawn = GetPawn<APlayerPawn>();
 	const auto Controller = Pawn ? Pawn->GetController() : nullptr;
 
 	if (!Controller) return;
