@@ -4,6 +4,8 @@
 #include "Player/RollPlayerComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Characters/BasePawn.h"
+#include "Components/CapsuleComponent.h"
 
 void URollPlayerComponent::InitializePlayerInput(UInputComponent* PlayerInputComponent)
 {
@@ -35,10 +37,45 @@ void URollPlayerComponent::InitializePlayerInput(UInputComponent* PlayerInputCom
 
 void URollPlayerComponent::Input_Move(const FInputActionValue& InputActionValue)
 {
+	ABasePawn* Pawn = GetPawn<ABasePawn>();
+	const auto Controller = Pawn ? Pawn->GetController() : nullptr;
+
+	if (!Controller) return;
+
+	const FVector2D Value = InputActionValue.Get<FVector2D>();
 	
+	const FRotator Rotation = Pawn->Controller->GetControlRotation();
+	const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+	
+	if (Value.X != 0.0f)
+	{
+		Pawn->GetCapsuleComponent()->AddForce(RightDirection * MovementSpeed * Value.X, NAME_None,true);
+	}
+
+	if (Value.Y != 0.0f)
+	{
+		Pawn->GetCapsuleComponent()->AddForce(ForwardDirection * MovementSpeed * Value.Y, NAME_None,true);
+	}
 }
 
 void URollPlayerComponent::Input_Look(const FInputActionValue& InputActionValue)
 {
+	APawn* Pawn = GetPawn<APawn>();
+
+	if (!Pawn) return;
 	
+	const FVector2D Value = InputActionValue.Get<FVector2D>();
+
+	if (Value.X != 0.0f)
+	{
+		Pawn->AddControllerYawInput(Value.X);
+	}
+
+	if (Value.Y != 0.0f)
+	{
+		Pawn->AddControllerPitchInput(Value.Y);
+	}
 }
