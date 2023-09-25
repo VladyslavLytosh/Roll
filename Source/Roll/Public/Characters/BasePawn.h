@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Gameplay/Paintable.h"
 #include "BasePawn.generated.h"
 
 class UCapsuleComponent;
@@ -18,16 +19,23 @@ class ROLL_API ABasePawn : public APawn
 public:
 	ABasePawn();
 
+	virtual void BeginPlay() override;
+	
+	FORCEINLINE UCapsuleComponent* GetCapsuleComponent() const { return CapsuleComponent; };
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = "true"))
-	UCapsuleComponent* CapsuleComp;
+	UCapsuleComponent* CapsuleComponent;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	UStaticMeshComponent* PawnMesh;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
-	USpringArmComponent* SpringArmComponent;
+	UMaterialInterface* PawnMaterial;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
-	UCameraComponent* CameraComponent;
+	UPROPERTY()
+	UMaterialInstanceDynamic* DynamicMaterial;
+
+	UPROPERTY(EditAnywhere,BlueprintReadOnly, Category = Style, meta = (AllowPrivateAccess = true))
+	FColor PawnColor;
 };

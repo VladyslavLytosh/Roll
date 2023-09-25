@@ -22,4 +22,10 @@ public:
 private:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = Input, meta = (AllowPrivateAccess = "true"))
 	URollPlayerComponent* RollPlayerComponent;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
+	USpringArmComponent* SpringArmComponent;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
+	UCameraComponent* CameraComponent;
 };
