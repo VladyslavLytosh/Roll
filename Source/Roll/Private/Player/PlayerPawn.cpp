@@ -4,15 +4,15 @@
 #include "Player/PlayerPawn.h"
 
 #include "Camera/CameraComponent.h"
+#include "Characters/TargetPawnBase.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Gameplay/Paintable.h"
 #include "Player/RollPlayerComponent.h"
 
 APlayerPawn::APlayerPawn()
 {
-	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
-	RootComponent = CapsuleComponent;
+	ShapeComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
+	RootComponent = ShapeComponent;
 	
 	RollPlayerComponent = CreateDefaultSubobject<URollPlayerComponent>(TEXT("RollPlayerComponent"));
 
@@ -27,6 +27,7 @@ APlayerPawn::APlayerPawn()
 
 	PawnMesh->SetupAttachment(RootComponent);
 	
+	ShapeComponent->OnComponentHit.AddDynamic(this, &ThisClass::OnComponentHit);
 }
 
 void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -37,18 +38,16 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	RollPlayerComponent->InitializePlayerInput(PlayerInputComponent);
 }
 
-void APlayerPawn::BeginPlay()
-{
-	Super::BeginPlay();
-	CapsuleComponent->OnComponentHit.AddDynamic(this, &ThisClass::OnComponentHit);
-}
-
 void APlayerPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                                  FVector NormalImpulse, const FHitResult& Hit)
 {
-	IPaintable* PaintableActor = Cast<IPaintable>(OtherActor);
-	
+	ATargetPawnBase* PaintableActor = Cast<ATargetPawnBase>(OtherActor);
 	if(!PaintableActor) return;
-
-	PaintableActor->Paint(PawnColor);
+	
+	if (PaintableActor->bClean)
+	{
+		PaintableActor->Paint(StartingPawnColor);
+		PaintableActor->bClean = false;
+		PaintableActor->NewColor = StartingPawnColor;
+	}
 }

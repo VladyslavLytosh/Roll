@@ -38,7 +38,7 @@ void URollPlayerComponent::InitializePlayerInput(UInputComponent* PlayerInputCom
 
 void URollPlayerComponent::Input_Move(const FInputActionValue& InputActionValue)
 {
-	APlayerPawn* Pawn = GetPawn<APlayerPawn>();
+	ABasePawn* Pawn = GetPawn<ABasePawn>();
 	const auto Controller = Pawn ? Pawn->GetController() : nullptr;
 
 	if (!Controller) return;
@@ -53,12 +53,12 @@ void URollPlayerComponent::Input_Move(const FInputActionValue& InputActionValue)
 	
 	if (Value.X != 0.0f)
 	{
-		Pawn->GetCapsuleComponent()->AddForce(RightDirection * MovementSpeed * Value.X, NAME_None,true);
+		Pawn->GetShapeComponent()->AddForce(RightDirection * MovementSpeed * Value.X, NAME_None,true);
 	}
 
 	if (Value.Y != 0.0f)
 	{
-		Pawn->GetCapsuleComponent()->AddForce(ForwardDirection * MovementSpeed * Value.Y, NAME_None,true);
+		Pawn->GetShapeComponent()->AddForce(ForwardDirection * MovementSpeed * Value.Y, NAME_None,true);
 	}
 }
 

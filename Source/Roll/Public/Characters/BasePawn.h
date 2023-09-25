@@ -19,10 +19,16 @@ public:
 	ABasePawn();
 
 	virtual void BeginPlay() override;
+	
+	FORCEINLINE UShapeComponent* GetShapeComponent() const { return ShapeComponent; };
 
+	FORCEINLINE FColor GetStartingPawnColor() const { return StartingPawnColor; };
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	UStaticMeshComponent* PawnMesh;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
+	UShapeComponent* ShapeComponent;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Style, meta = (AllowPrivateAccess = true))
 	UMaterialInterface* PawnMaterial;
@@ -31,5 +37,5 @@ protected:
 	UMaterialInstanceDynamic* DynamicMaterial;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Style, meta = (AllowPrivateAccess = true))
-	FColor PawnColor;
+	FColor StartingPawnColor;
 };

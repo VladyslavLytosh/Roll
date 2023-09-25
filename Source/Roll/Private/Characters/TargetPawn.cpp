@@ -3,29 +3,25 @@
 
 #include "Characters/TargetPawn.h"
 
-#include "Components/BoxComponent.h"
-#include "Kismet/KismetMathLibrary.h"
+#include "Components/ShapeComponent.h"
+
 
 ATargetPawn::ATargetPawn()
 {
-	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
-	RootComponent = BoxComponent;
-	PawnMesh->SetupAttachment(RootComponent);
+	ShapeComponent->OnComponentHit.AddDynamic(this, &ThisClass::OnComponentHit);
 }
 
-void ATargetPawn::Paint(const FColor& Color)
+void ATargetPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	FVector NormalImpulse, const FHitResult& Hit)
 {
-	DynamicMaterial->SetVectorParameterValue("Color", Color);
-}
-
-void ATargetPawn::BeginPlay()
-{
-	Super::BeginPlay();
+	ATargetPawn* PaintableActor = Cast<ATargetPawn>(OtherActor);
+	if(!PaintableActor) return;
 	
-	FTimerDelegate TimerDelegate;
-	TimerDelegate.BindLambda([&]()
+	if (!bClean && PaintableActor->bClean)
 	{
-		BoxComponent->AddImpulse(UKismetMathLibrary::RandomUnitVector().GetSafeNormal2D() * 500, NAME_None, true);
-	});
-	GetWorldTimerManager().SetTimer(ForceTimer, TimerDelegate, 1.f,true);
+		PaintableActor->Paint(NewColor);
+		PaintableActor->bClean = false;
+		PaintableActor->NewColor = this->NewColor;
+	}
 }
+

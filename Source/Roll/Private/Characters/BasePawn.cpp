@@ -17,7 +17,7 @@ void ABasePawn::BeginPlay()
 	Super::BeginPlay();
 	
 	DynamicMaterial = UMaterialInstanceDynamic::Create(PawnMaterial, nullptr);
-	DynamicMaterial->SetVectorParameterValue("Color", PawnColor);
+	DynamicMaterial->SetVectorParameterValue("Color", StartingPawnColor);
 	PawnMesh->SetMaterial(0,DynamicMaterial);
 }
 

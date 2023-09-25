@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "Characters/TargetPawnBase.h"
-#include "TargetPawn.generated.h"
+#include "CleanerPawn.generated.h"
 
 
 UCLASS()
-class ROLL_API ATargetPawn : public ATargetPawnBase
+class ROLL_API ACleanerPawn : public ATargetPawnBase
 {
 	GENERATED_BODY()
-	
+
 public:
-	ATargetPawn();
+	ACleanerPawn();
 	
 private:
 	UFUNCTION()
