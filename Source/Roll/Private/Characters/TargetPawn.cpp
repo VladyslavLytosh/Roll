@@ -14,7 +14,7 @@ ATargetPawn::ATargetPawn()
 	RootComponent = ShapeComponent;
 	PawnMesh->SetupAttachment(RootComponent);
 	
-	ShapeComponent->OnComponentHit.AddDynamic(this, &ThisClass::OnComponentHit);
+	Cast<UBoxComponent>(ShapeComponent)->OnComponentHit.AddDynamic(this, &ThisClass::OnComponentHit);
 }
 
 void ATargetPawn::Paint(const FColor& Color)
