@@ -28,7 +28,6 @@ void ATargetPawn::PostInitializeComponents()
 	
 	GetWorldTimerManager().ClearTimer(ForceTimer);
 	
-
 	GetWorldTimerManager().SetTimer(ForceTimer, this, &ThisClass::MovePawn, MoveRate,true);
 }
 
@@ -45,7 +44,6 @@ void ATargetPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* Othe
 		PaintableActor->NewColor = this->NewColor;
 		
 		ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
-		
 		RollGameMode->OnPaintTarget(PaintableActor);
 	}
 }
