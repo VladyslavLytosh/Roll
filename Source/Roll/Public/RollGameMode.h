@@ -6,12 +6,12 @@
 #include "GameFramework/GameModeBase.h"
 #include "RollGameMode.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class ROLL_API ARollGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+public:
+	int32 GetNumCleanerTargets();
 };
