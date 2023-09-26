@@ -29,4 +29,9 @@ public:
 	
 protected:
 	FTimerHandle ForceTimer;
+
+	UPROPERTY(EditAnywhere,Category = Movement)
+	float Speed=500.f;
+	UPROPERTY(EditAnywhere,Category = Movement)
+	float MoveRate=.5f;
 };

@@ -4,13 +4,8 @@
 #include "Characters/CleanerPawn.h"
 
 #include "RollGameMode.h"
-#include "Components/ShapeComponent.h"
 #include "Kismet/GameplayStatics.h"
 
-ACleanerPawn::ACleanerPawn()
-{
-	ShapeComponent->OnComponentHit.AddDynamic(this, &ThisClass::OnComponentHit);
-}
 
 void ACleanerPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	FVector NormalImpulse, const FHitResult& Hit)
@@ -27,6 +22,9 @@ void ACleanerPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* Oth
 		ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
 		
 		RollGameMode->OnCleanTarget(PaintableActor);
+		return;
 	}
+
+	Super::OnComponentHit(HitComponent, OtherActor, OtherComp, NormalImpulse, Hit);
 }
 

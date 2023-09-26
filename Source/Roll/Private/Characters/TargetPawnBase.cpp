@@ -29,9 +29,9 @@ void ATargetPawnBase::BeginPlay()
 	FTimerDelegate TimerDelegate;
 	TimerDelegate.BindLambda([&]()
 	{
-		ShapeComponent->AddImpulse(UKismetMathLibrary::RandomUnitVector().GetSafeNormal2D() * 500, NAME_None, true);
+		ShapeComponent->AddImpulse(UKismetMathLibrary::RandomUnitVector().GetSafeNormal2D() * Speed, NAME_None, true);
 	});
-	GetWorldTimerManager().SetTimer(ForceTimer, TimerDelegate, 1.f,true);
+	GetWorldTimerManager().SetTimer(ForceTimer, TimerDelegate, MoveRate,true);
 }
 
 

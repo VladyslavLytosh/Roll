@@ -15,8 +15,8 @@ class ROLL_API ATargetPawn : public ATargetPawnBase
 public:
 	ATargetPawn();
 	
-private:
+protected:
 	UFUNCTION()
-	void OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
+	virtual void OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 };
