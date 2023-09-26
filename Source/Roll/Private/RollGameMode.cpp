@@ -35,11 +35,11 @@ int32 ARollGameMode::GetNumCleanerTargets() const
 int32 ARollGameMode::GetNumAlLTargets() const
 {
 	TArray<AActor*> Targets;
-	UGameplayStatics::GetAllActorsOfClass(this,ATargetPawnBase::StaticClass(),Targets);
+	UGameplayStatics::GetAllActorsOfClass(this,ATargetPawn::StaticClass(),Targets);
 	int32 Count=0;
 	for (const auto& Target : Targets)
 	{
-		if (Cast<ATargetPawnBase>(Target)->bClean)
+		if (Cast<ATargetPawn>(Target)->bClean)
 		{
 			Count++;
 		}
@@ -58,7 +58,7 @@ void ARollGameMode::CheckWinCondition()
 	}
 }
 
-void ARollGameMode::OnPaintTarget(ATargetPawnBase* Target)
+void ARollGameMode::OnPaintTarget(ATargetPawn* Target)
 {
 	TargetsCount--;
 	if (Cast<ACleanerPawn>(Target))
@@ -68,7 +68,7 @@ void ARollGameMode::OnPaintTarget(ATargetPawnBase* Target)
 	CheckWinCondition();
 }
 
-void ARollGameMode::OnCleanTarget(ATargetPawnBase* Target)
+void ARollGameMode::OnCleanTarget(ATargetPawn* Target)
 {
 	TargetsCount++;
 	if (Cast<ACleanerPawn>(Target))

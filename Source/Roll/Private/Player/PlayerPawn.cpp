@@ -5,7 +5,7 @@
 
 #include "RollGameMode.h"
 #include "Camera/CameraComponent.h"
-#include "Characters/TargetPawnBase.h"
+#include "Characters/TargetPawn.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -23,17 +23,13 @@ APlayerPawn::APlayerPawn()
 	
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComponent->SetupAttachment(SpringArmComponent);
-
+	
 	SpringArmComponent->bUsePawnControlRotation = true;
 	CameraComponent->bUsePawnControlRotation = false;
 
 	PawnMesh->SetupAttachment(RootComponent);
 	
 	ShapeComponent->OnComponentHit.AddDynamic(this, &ThisClass::OnComponentHit);
-
-	ShapeComponent->SetSimulatePhysics(true);
-	ShapeComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	ShapeComponent->SetCollisionResponseToAllChannels(ECR_Block);
 }
 
 void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -47,7 +43,7 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 void APlayerPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                                  FVector NormalImpulse, const FHitResult& Hit)
 {
-	ATargetPawnBase* PaintableActor = Cast<ATargetPawnBase>(OtherActor);
+	ATargetPawn* PaintableActor = Cast<ATargetPawn>(OtherActor);
 	if(!PaintableActor) return;
 	
 	if (PaintableActor->bClean)

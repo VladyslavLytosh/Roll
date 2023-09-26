@@ -10,7 +10,7 @@
 void ACleanerPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	FVector NormalImpulse, const FHitResult& Hit)
 {
-	ATargetPawnBase* PaintableActor = Cast<ATargetPawnBase>(OtherActor);
+	ATargetPawn* PaintableActor = Cast<ATargetPawn>(OtherActor);
 	if(!PaintableActor) return;
 	
 	if (bClean && !PaintableActor->bClean)

@@ -7,7 +7,7 @@
 #include "RollGameMode.generated.h"
 
 
-class ATargetPawnBase;
+class ATargetPawn;
 
 UCLASS()
 class ROLL_API ARollGameMode : public AGameModeBase
@@ -19,9 +19,9 @@ public:
 	
 	FORCEINLINE int32 GetCleanersCount() const { return CleanersCount; };
 
-	void OnPaintTarget(ATargetPawnBase* Target);
+	void OnPaintTarget(ATargetPawn* Target);
 	
-	void OnCleanTarget(ATargetPawnBase* Target);
+	void OnCleanTarget(ATargetPawn* Target);
 	
 protected:
 	virtual void BeginPlay() override;

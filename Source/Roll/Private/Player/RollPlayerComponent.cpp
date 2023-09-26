@@ -6,7 +6,6 @@
 #include "EnhancedInputSubsystems.h"
 #include "Characters/BasePawn.h"
 #include "Components/CapsuleComponent.h"
-#include "Player/PlayerPawn.h"
 
 void URollPlayerComponent::InitializePlayerInput(UInputComponent* PlayerInputComponent)
 {

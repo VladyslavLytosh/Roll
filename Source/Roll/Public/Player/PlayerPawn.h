@@ -7,7 +7,8 @@
 #include "PlayerPawn.generated.h"
 
 
-class ATargetPawnBase;
+class UArrowComponent;
+class ATargetPawn;
 class URollPlayerComponent;
 
 
@@ -19,8 +20,9 @@ class ROLL_API APlayerPawn : public ABasePawn
 public:
 	APlayerPawn();
 	
+protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
-
+	
 private:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category = Input, meta = (AllowPrivateAccess = "true"))
 	URollPlayerComponent* RollPlayerComponent;
@@ -38,6 +40,6 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Sound, meta = (AllowPrivateAccess = true))
 	USoundBase* PaintSound;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Sound, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = VFX, meta = (AllowPrivateAccess = true))
 	UParticleSystem* PaintEmitter;
 };

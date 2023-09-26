@@ -3,8 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TargetPawn.h"
-#include "Characters/TargetPawnBase.h"
+#include "Characters/TargetPawn.h"
 #include "CleanerPawn.generated.h"
 
 
