@@ -11,6 +11,10 @@ ATargetPawnBase::ATargetPawnBase()
 	ShapeComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
 	RootComponent = ShapeComponent;
 	PawnMesh->SetupAttachment(RootComponent);
+	
+	ShapeComponent->SetSimulatePhysics(true);
+	ShapeComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	ShapeComponent->SetCollisionResponseToAllChannels(ECR_Block);
 }
 
 void ATargetPawnBase::Paint(const FColor& Color)

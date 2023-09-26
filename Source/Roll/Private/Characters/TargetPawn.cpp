@@ -3,7 +3,9 @@
 
 #include "Characters/TargetPawn.h"
 
+#include "RollGameMode.h"
 #include "Components/ShapeComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 
 ATargetPawn::ATargetPawn()
@@ -22,6 +24,10 @@ void ATargetPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* Othe
 		PaintableActor->Paint(NewColor);
 		PaintableActor->bClean = false;
 		PaintableActor->NewColor = this->NewColor;
+		
+		ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
+		
+		RollGameMode->OnPaintTarget(PaintableActor);
 	}
 }
 

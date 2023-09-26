@@ -11,6 +11,9 @@ UCLASS(Abstract)
 class ROLL_API ARollHUD : public AHUD
 {
 	GENERATED_BODY()
+
+public:
+	void ToggleVictoryScreenWidget() const;
 	
 protected:
 	virtual void BeginPlay() override;

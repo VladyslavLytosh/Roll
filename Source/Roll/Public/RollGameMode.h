@@ -7,11 +7,31 @@
 #include "RollGameMode.generated.h"
 
 
+class ATargetPawnBase;
+
 UCLASS()
 class ROLL_API ARollGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
 public:
-	int32 GetNumCleanerTargets();
+	FORCEINLINE int32 GetTargetsCount() const { return TargetsCount; };
+	
+	FORCEINLINE int32 GetCleanersCount() const { return CleanersCount; };
+
+	void OnPaintTarget(ATargetPawnBase* Target);
+	
+	void OnCleanTarget(ATargetPawnBase* Target);
+	
+protected:
+	virtual void BeginPlay() override;
+	
+private:
+	int32 TargetsCount;
+	int32 CleanersCount;
+
+	int32 GetNumCleanerTargets() const;
+	int32 GetNumAlLTargets() const;
+
+	void CheckWinCondition();
 };

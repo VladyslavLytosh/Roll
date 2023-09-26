@@ -7,7 +7,9 @@
 #include "PlayerPawn.generated.h"
 
 
+class ATargetPawnBase;
 class URollPlayerComponent;
+
 
 UCLASS()
 class ROLL_API APlayerPawn : public ABasePawn

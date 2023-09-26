@@ -10,10 +10,24 @@ void ARollHUD::BeginPlay()
 	Super::BeginPlay();
 
 	APlayerController* PlayerController = GetOwningPlayerController();
+
+	checkf(GameHUDClass && VictoryScreenClass, TEXT("Widgets classes aren't setted"))
 	
 	GameHUDWidget = CreateWidget(PlayerController, GameHUDClass);
 	GameHUDWidget->AddToViewport();
 
-	/*VictoryScreenWidget = CreateWidget(PlayerController, VictoryScreenClass);
-	VictoryScreenWidget->AddToViewport();*/
+	VictoryScreenWidget = CreateWidget(PlayerController, VictoryScreenClass);
+	VictoryScreenWidget->AddToViewport();
+}
+
+void ARollHUD::ToggleVictoryScreenWidget() const
+{
+	if (VictoryScreenWidget->GetVisibility() == ESlateVisibility::Collapsed)
+	{
+		VictoryScreenWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+	}
+	else
+	{
+		VictoryScreenWidget->SetVisibility(ESlateVisibility::Collapsed);
+	}
 }

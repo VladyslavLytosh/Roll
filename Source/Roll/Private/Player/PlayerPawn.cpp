@@ -3,10 +3,12 @@
 
 #include "Player/PlayerPawn.h"
 
+#include "RollGameMode.h"
 #include "Camera/CameraComponent.h"
 #include "Characters/TargetPawnBase.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Player/RollPlayerComponent.h"
 
 APlayerPawn::APlayerPawn()
@@ -28,6 +30,10 @@ APlayerPawn::APlayerPawn()
 	PawnMesh->SetupAttachment(RootComponent);
 	
 	ShapeComponent->OnComponentHit.AddDynamic(this, &ThisClass::OnComponentHit);
+
+	ShapeComponent->SetSimulatePhysics(true);
+	ShapeComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	ShapeComponent->SetCollisionResponseToAllChannels(ECR_Block);
 }
 
 void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -49,5 +55,9 @@ void APlayerPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* Othe
 		PaintableActor->Paint(StartingPawnColor);
 		PaintableActor->bClean = false;
 		PaintableActor->NewColor = StartingPawnColor;
+		
+		ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
+		
+		RollGameMode->OnPaintTarget(PaintableActor);
 	}
 }

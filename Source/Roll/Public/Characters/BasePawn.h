@@ -23,6 +23,7 @@ public:
 	FORCEINLINE UShapeComponent* GetShapeComponent() const { return ShapeComponent; };
 
 	FORCEINLINE FColor GetStartingPawnColor() const { return StartingPawnColor; };
+	
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = true))
 	UStaticMeshComponent* PawnMesh;

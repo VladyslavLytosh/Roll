@@ -10,7 +10,7 @@
 void UCleanersCounterWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
-	
-	ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
-	CleanersNum->SetText(FText::AsNumber(RollGameMode->GetNumCleanerTargets()));
+
+	const ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
+	CleanersNum->SetText(FText::AsNumber(RollGameMode->GetCleanersCount()));
 }

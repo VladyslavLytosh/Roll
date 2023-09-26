@@ -3,7 +3,9 @@
 
 #include "Characters/CleanerPawn.h"
 
+#include "RollGameMode.h"
 #include "Components/ShapeComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 ACleanerPawn::ACleanerPawn()
 {
@@ -21,6 +23,10 @@ void ACleanerPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* Oth
 		PaintableActor->Paint(PaintableActor->GetStartingPawnColor());
 		PaintableActor->bClean = true;
 		PaintableActor->NewColor = PaintableActor->GetStartingPawnColor();
+		
+		ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
+		
+		RollGameMode->OnCleanTarget(PaintableActor);
 	}
 }
 
