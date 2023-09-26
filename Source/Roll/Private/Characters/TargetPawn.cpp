@@ -15,7 +15,7 @@ ATargetPawn::ATargetPawn()
 
 void ATargetPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	FVector NormalImpulse, const FHitResult& Hit)
-{
+{	
 	ATargetPawn* PaintableActor = Cast<ATargetPawn>(OtherActor);
 	if(!PaintableActor) return;
 	

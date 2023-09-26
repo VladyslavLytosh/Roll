@@ -59,5 +59,8 @@ void APlayerPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* Othe
 		ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
 		
 		RollGameMode->OnPaintTarget(PaintableActor);
+
+		UGameplayStatics::PlaySoundAtLocation(this, PaintSound, PaintableActor->GetActorLocation(), PaintableActor->GetActorRotation());
+		UGameplayStatics::SpawnEmitterAtLocation(this,PaintEmitter,PaintableActor->GetActorLocation(), PaintableActor->GetActorRotation());
 	}
 }

@@ -3,8 +3,6 @@
 
 #include "Characters/BasePawn.h"
 
-#include "Components/CapsuleComponent.h"
-
 ABasePawn::ABasePawn()
 {
 	PrimaryActorTick.bCanEverTick = true;
