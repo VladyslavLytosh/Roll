@@ -17,9 +17,9 @@ ATargetPawn::ATargetPawn()
 	Cast<UBoxComponent>(ShapeComponent)->OnComponentHit.AddDynamic(this, &ThisClass::OnComponentHit);
 }
 
-void ATargetPawn::Paint(const FColor& Color)
+void ATargetPawn::ChangeColor(const FColor& InColor)
 {
-	DynamicMaterial->SetVectorParameterValue("Color", Color);
+	DynamicMaterial->SetVectorParameterValue("Color", InColor);
 }
 
 void ATargetPawn::PostInitializeComponents()
@@ -37,10 +37,10 @@ void ATargetPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* Othe
 	ATargetPawn* PaintableActor = Cast<ATargetPawn>(OtherActor);
 	if(!PaintableActor) return;
 	
-	if (!bClean && PaintableActor->bClean)
+	if (!bIsClean && PaintableActor->bIsClean)
 	{
-		PaintableActor->Paint(NewColor);
-		PaintableActor->bClean = false;
+		PaintableActor->ChangeColor(NewColor);
+		PaintableActor->bIsClean = false;
 		PaintableActor->NewColor = this->NewColor;
 		
 		ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
@@ -51,6 +51,27 @@ void ATargetPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* Othe
 void ATargetPawn::MovePawn()
 {
 	ShapeComponent->AddImpulse(UKismetMathLibrary::RandomUnitVector().GetSafeNormal2D() * Speed, NAME_None, true);
+}
+
+void ATargetPawn::PaintTarget(const FColor& InColor)
+{
+	this->ChangeColor(InColor);
+	this->bIsClean = false;
+	this->NewColor = InColor;
+		
+	ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
+	RollGameMode->OnPaintTarget(this);
+}
+
+void ATargetPawn::CleanTarget()
+{
+	this->ChangeColor(this->GetStartingPawnColor());
+	this->bIsClean = true;
+	this->NewColor = this->GetStartingPawnColor();
+		
+	ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
+		
+	RollGameMode->OnCleanTarget(this);
 }
 
 

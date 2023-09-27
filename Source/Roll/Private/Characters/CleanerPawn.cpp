@@ -13,15 +13,9 @@ void ACleanerPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* Oth
 	ATargetPawn* PaintableActor = Cast<ATargetPawn>(OtherActor);
 	if(!PaintableActor) return;
 	
-	if (bClean && !PaintableActor->bClean)
+	if (IsClean() && !PaintableActor->IsClean())
 	{
-		PaintableActor->Paint(PaintableActor->GetStartingPawnColor());
-		PaintableActor->bClean = true;
-		PaintableActor->NewColor = PaintableActor->GetStartingPawnColor();
-		
-		ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
-		
-		RollGameMode->OnCleanTarget(PaintableActor);
+		PaintableActor->CleanTarget();
 		return;
 	}
 

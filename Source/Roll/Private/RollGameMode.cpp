@@ -24,7 +24,7 @@ int32 ARollGameMode::GetNumCleanerTargets() const
 	int32 Count=0;
 	for (const auto& Cleaner : Cleaners)
 	{
-		if (Cast<ACleanerPawn>(Cleaner)->bClean)
+		if (Cast<ACleanerPawn>(Cleaner)->IsClean())
 		{
 			Count++;
 		}
@@ -39,7 +39,7 @@ int32 ARollGameMode::GetNumAlLTargets() const
 	int32 Count=0;
 	for (const auto& Target : Targets)
 	{
-		if (Cast<ATargetPawn>(Target)->bClean)
+		if (Cast<ATargetPawn>(Target)->IsClean())
 		{
 			Count++;
 		}

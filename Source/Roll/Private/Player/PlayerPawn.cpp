@@ -46,16 +46,10 @@ void APlayerPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* Othe
 	ATargetPawn* PaintableActor = Cast<ATargetPawn>(OtherActor);
 	if(!PaintableActor) return;
 	
-	if (PaintableActor->bClean)
+	if (PaintableActor->IsClean())
 	{
-		PaintableActor->Paint(StartingPawnColor);
-		PaintableActor->bClean = false;
-		PaintableActor->NewColor = StartingPawnColor;
+		PaintableActor->PaintTarget(StartingPawnColor);
 		
-		ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
-		
-		RollGameMode->OnPaintTarget(PaintableActor);
-
 		UGameplayStatics::PlaySoundAtLocation(this, PaintSound, PaintableActor->GetActorLocation(), PaintableActor->GetActorRotation());
 		UGameplayStatics::SpawnEmitterAtLocation(this,PaintEmitter,PaintableActor->GetActorLocation(), PaintableActor->GetActorRotation());
 	}

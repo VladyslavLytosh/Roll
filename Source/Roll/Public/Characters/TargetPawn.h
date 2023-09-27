@@ -12,21 +12,27 @@ class UBoxComponent;
 UCLASS()
 class ROLL_API ATargetPawn : public ABasePawn
 {
-	GENERATED_BODY()
-
 public:
+	GENERATED_BODY()
+	
 	ATargetPawn();
 	
-	virtual void Paint(const FColor& Color);
+	virtual void ChangeColor(const FColor& InColor);
 	
 	virtual void PostInitializeComponents() override;
 	
-	UPROPERTY()
-	bool bClean=true;
+	virtual void PaintTarget(const FColor& InColor);
 	
-	UPROPERTY()
-	FColor NewColor;
+	virtual void CleanTarget();
 	
+	FORCEINLINE bool& IsClean() { return bIsClean; };
+
+	FORCEINLINE void SetIsClean(const bool InIsClean) { this->bIsClean = InIsClean; };
+	
+	FORCEINLINE FColor& GetNewColor() { return NewColor; }; 
+
+	FORCEINLINE void SetNewColor(const FColor& InNewColor) { this->NewColor = InNewColor; };
+
 protected:
 	UPROPERTY()
 	FTimerHandle ForceTimer;
@@ -42,4 +48,8 @@ protected:
 
 	UFUNCTION()
 	void MovePawn();
+	
+private:
+	bool bIsClean=true;
+	FColor NewColor;
 };
