@@ -13,5 +13,14 @@ UCLASS()
 class ROLL_API UVictoryScreenWidget : public UUserWidget
 {
 	GENERATED_BODY()
+
+protected:
+	virtual void NativeOnInitialized() override;
 	
+private:
+	UPROPERTY(meta = (BindWidget))
+	UButton* RestartButton;
+
+	UFUNCTION()
+	void OnRestartClicked();
 };

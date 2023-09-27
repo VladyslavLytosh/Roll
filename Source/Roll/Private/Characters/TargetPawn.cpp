@@ -39,12 +39,7 @@ void ATargetPawn::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* Othe
 	
 	if (!bIsClean && PaintableActor->bIsClean)
 	{
-		PaintableActor->ChangeColor(NewColor);
-		PaintableActor->bIsClean = false;
-		PaintableActor->NewColor = this->NewColor;
-		
-		ARollGameMode* RollGameMode = Cast<ARollGameMode>(UGameplayStatics::GetGameMode(this));
-		RollGameMode->OnPaintTarget(PaintableActor);
+		PaintableActor->PaintTarget(NewColor);
 	}
 }
 

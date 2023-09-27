@@ -50,6 +50,8 @@ protected:
 	void MovePawn();
 	
 private:
+    UPROPERTY()
 	bool bIsClean=true;
+	UPROPERTY()
 	FColor NewColor;
 };

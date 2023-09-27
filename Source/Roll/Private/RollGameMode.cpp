@@ -14,6 +14,10 @@ void ARollGameMode::BeginPlay()
 	
 	TargetsCount = GetNumAlLTargets();
 	CleanersCount = GetNumCleanerTargets();
+
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(this,0);
+	PlayerController->SetInputMode(FInputModeGameOnly());
+	PlayerController->bShowMouseCursor = false;
 }
 
 
@@ -55,6 +59,9 @@ void ARollGameMode::CheckWinCondition()
 		check(RollHUD);
 		
 		RollHUD->ToggleVictoryScreenWidget();
+		APlayerController* PlayerController = UGameplayStatics::GetPlayerController(this,0);
+		PlayerController->SetInputMode(FInputModeGameAndUI());
+		PlayerController->bShowMouseCursor = true;
 	}
 }
 
